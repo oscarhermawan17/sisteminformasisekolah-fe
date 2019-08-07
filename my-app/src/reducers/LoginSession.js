@@ -6,7 +6,7 @@ const initialState = {
     let initial = {
       token:null
     }
-    if(action.type === 'SET_USER_SESSION'){
+    if(action.type === 'SET_TOKEN_USER'){
       return { token:action.payload }
     } else if(action.type === 'LOG_OUT'){
       window.location.replace('/#/login')

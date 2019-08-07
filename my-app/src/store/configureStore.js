@@ -15,7 +15,4 @@ import rootReducers from '../reducers';
 const store = createStore(rootReducers, applyMiddleware(thunk, createLogger));
 // const persistor = persistStore(store);
 
-export {
-  store, 
-//   persistor
-}
+export default store

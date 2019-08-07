@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { loginAction } from '../actions/user'
+import { loginAction } from '../actions/User'
 import './page.css'
 
 class login extends React.Component {
   constructor(){
     super()
     this.state = {
-      username : "0000",
-      password : "admin"
+      username : "",
+      password : ""
     }
   }
 

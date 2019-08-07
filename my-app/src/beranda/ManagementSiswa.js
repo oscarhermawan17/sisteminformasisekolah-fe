@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from './Navbar'
-import Profile from './Profile'
+import ListSiswaComponent from './ListSiswaComponent'
 
 class Beranda extends React.Component {
   render(){
     return (
       <div>
         <Navbar />
-        <Profile/>
+        <ListSiswaComponent />
       </div> 
     );
   }
