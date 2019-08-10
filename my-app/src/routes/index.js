@@ -16,15 +16,15 @@ export default () => (
         <Switch>
           <Route path="/login" component={Login} />
           
-          <Route path="/management_siswa" component={() => <ManagementUser user_navigation="siswa" />} />
-          <Route path="/tambah_siswa"  component={() => <CreateUser user_navigation="siswa" />} />
-          <Route path="/ubah_siswa"  component={Beranda} />
+          <Route path="/management_siswa" render={(props )=> <ManagementUser {...props} user_navigation="siswa"/>} />
+          <Route path="/tambah_siswa"  render={(props )=>  <CreateUser {...props} user_navigation="siswa" />} />
+          <Route path="/ubah_siswa"  render={(props )=>  <CreateUser {...props} user_navigation="siswa" />} />
 
-          <Route path="/management_guru" component={() => <ManagementUser user_navigation="guru" />} />
-          <Route path="/tambah_guru" component={() => <CreateUser user_navigation="guru" />} />
+          <Route path="/management_guru" render={(props )=> <ManagementUser {...props} user_navigation="guru"/>} />
+          <Route path="/tambah_guru"  render={(props )=>  <CreateUser {...props} user_navigation="guru" />} />
           <Route path="/ubah_guru" component={Beranda} />
           <Route path="/" exact component={Beranda} />
         </Switch>
       </BrowserRouter>
   </Provider>
-    )
+)

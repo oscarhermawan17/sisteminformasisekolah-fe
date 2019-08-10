@@ -11,10 +11,11 @@ class CreateUser extends React.Component {
   }
 
   render(){
+    let props = this.props
     return (
       <div>
         <Navbar />
-        <TableCreateUser user_navigation={this.props.user_navigation}/>
+        <TableCreateUser {...props} user_navigation={this.props.user_navigation}/>
       </div> 
     );
   }

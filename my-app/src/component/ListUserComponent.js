@@ -6,6 +6,7 @@ import { getAllSiswa, deleteUser } from '../actions/User'
 
 class ListSiswaComponent extends React.Component {
     constructor(props){
+        
         super(props)
         this.state = {
             button_delete:"modal",
@@ -27,6 +28,7 @@ class ListSiswaComponent extends React.Component {
 
 
     render(){
+        let props = this.props
         return (
         <div>
             <div>

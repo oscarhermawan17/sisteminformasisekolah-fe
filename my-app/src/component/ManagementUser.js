@@ -11,11 +11,13 @@ class ManagementUser extends React.Component {
   }
 
   render(){
+    let props = this.props
     return (
       <div>
         <Navbar />
-        <ListUserComponent user_navigation={this.props.user_navigation} />
-      </div> 
+        <ListUserComponent {...props} user_navigation={this.props.user_navigation} />
+      </div>
+     
     );
   }
 }

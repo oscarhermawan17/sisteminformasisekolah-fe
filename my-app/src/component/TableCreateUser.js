@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { createUser } from '../actions/User'
-
+import { Redirect } from 'react-router-dom';
 class TableCreateUser extends React.Component {
     constructor(){
         super()
         this.state={
+            redirect:false,
             nomor_induk:"",
             nama_lengkap:"",
-            gender:"",
+            gender:"0",  
             email:"",
             alamat:"",
             nomor_hp:"",
@@ -17,6 +18,7 @@ class TableCreateUser extends React.Component {
         
     }
 
+
     handleChange(e, name) {
         this.setState({ [name]: e.target.value });
     }
@@ -24,10 +26,10 @@ class TableCreateUser extends React.Component {
     createUser(){
         if(this.props.user_navigation === 'siswa'){
             this.props.toCreateUser({...this.state, role:2})
+            this.props.history.push('/management_siswa')
         } else if(this.props.user_navigation === 'guru'){
             this.props.toCreateUser({...this.state, role:3})
-        }
-            
+        }         
     }
 
     render(){
@@ -63,7 +65,7 @@ class TableCreateUser extends React.Component {
                             <div class="field has-addons">
                                 <div class="control is-expanded">
                                     <div class="select is-fullwidth is-info">
-                                    <select name="country">
+                                    <select name="country" onChange={(e) => this.handleChange(e, 'gender')}>
                                         <option value="0">Pilih Jenis Kelamin</option>
                                         <option value="Pria">Pria</option>
                                         <option value="Wanita">Wanita</option>

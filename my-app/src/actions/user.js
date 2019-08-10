@@ -80,12 +80,8 @@ export const createUser = (data_user) => {
     axios.post(`http://127.0.0.1:3001/users/create_user`, data_user )
           .then(response => {
              if(response.data.status === "success"){
-                alert("Success input user")
-                if(data_user.role === 2){
-                  window.location.href = '/management_siswa' 
-                } else if(data_user.role === 3){
-                  window.location.href = '/management_guru' 
-                }                     
+                dispatch(inputOneUser(response.data.data))
+                alert("Success input user")        
              } else {
                alert(response.data.message_response)
              }
@@ -93,6 +89,13 @@ export const createUser = (data_user) => {
           .catch(function (error) {
             alert("Error Connection. Please check your connection")
           });
+  }
+}
+
+export const inputOneUser = (responseData) =>{
+  return {
+    type: 'INPUT_ONE_USER',
+    payload:responseData
   }
 }
 

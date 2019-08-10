@@ -8,6 +8,7 @@ class Beranda extends React.Component {
       <div>
         <Navbar />
         <Profile/>
+        {console.log('m user', this.props)}
       </div> 
     );
   }
