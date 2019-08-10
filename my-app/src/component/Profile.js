@@ -7,7 +7,7 @@ class Profile extends React.Component {
         <div>
             <div className="kotak-profile">
                 <div className="title-profile">
-                    PROFILE SISWA
+                    PROFIL SISWA
                 </div>
                 <div className="columns">
                     <div className="column is-two-fifths">

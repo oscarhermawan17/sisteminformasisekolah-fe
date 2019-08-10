@@ -17,45 +17,33 @@ class Navbar extends React.Component {
           </div>
 
           <div id="navbarExampleTransparentExample" className="navbar-menu">
-            <div className="navbar-start">
-              <a className="navbar-item" href="https://bulma.io/">
-                Beranda
-              </a>
-              <a className="navbar-item" href="https://bulma.io/">
+            <div className="navbar-start">             
+              <a className="navbar-item" href="/">
                 Profil
               </a>
-              <a className="navbar-item" href="https://bulma.io/">
+              <a className="navbar-item">
                 Datar Nilai
               </a>
+
+
               <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link" href="https://bulma.io/documentation/overview/start/">
-                  Docs
-                </a>
+                <span className="navbar-link">
+                  Atur Siswa / Guru
+                </span>
                 <div className="navbar-dropdown is-boxed">
-                  <a className="navbar-item" href="https://bulma.io/documentation/overview/start/">
-                    Overview
+                  <a className="navbar-item" href="/management_siswa">
+                    Atur Siswa
                   </a>
-                  <a className="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
-                    Modifiers
+                  <a className="navbar-item" href="/management_guru">
+                    Atur Guru
                   </a>
-                  <a className="navbar-item" href="https://bulma.io/documentation/columns/basics/">
-                    Columns
-                  </a>
-                  <a className="navbar-item" href="https://bulma.io/documentation/layout/container/">
-                    Layout
-                  </a>
-                  <a className="navbar-item" href="https://bulma.io/documentation/form/general/">
-                    Form
-                  </a>
-                  
-                  <a className="navbar-item" href="https://bulma.io/documentation/elements/box/">
-                    Elements
-                  </a>
-                  <a className="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
-                    Components
-                  </a>
+              
                 </div>
-                </div>
+              </div>
+
+              <a className="navbar-item" href="https://bulma.io/">
+                Atur Nilai
+              </a>
             </div>
 
             <div className="navbar-end">
@@ -67,7 +55,7 @@ class Navbar extends React.Component {
                         <i className="fab fa-twitter"></i>
                       </span>
                       <span>
-                        Tweet
+                        Keluar
                       </span>
                     </a>
                   </p>

@@ -34,30 +34,88 @@ export const log_Out = () => {
   }
 }
 
-export const getAllSiswa = (token) => {
-  return dispatch => {
-    axios.get(`http://127.0.0.1:3001/users/get_all_student`)
-          .then(response => {
-            if(response.data.status === 'success'){
-              dispatch(setAllSiswa(response.data.data))
-              // window.location.href = '/#/dashboard'
-            } else {
-              console.log("masuk else")
-              alert(`${response.data.message_response}`)
-            }
-          })
-          .catch(err => {
-            console.log("masuk catch", err)
-            alert("Error Connection. Please check your connection")
-            // window.location.href = ' /login'
-          });
+export const getAllSiswa = (criteria_find) => {
+  if(criteria_find === 'siswa'){
+    return dispatch => {
+      axios.get(`http://127.0.0.1:3001/users/get_all_students`)
+            .then(response => {
+              if(response.data.status === 'success'){
+                dispatch(setAllUser(response.data.data))
+              } else {
+                alert(`${response.data.message_response}`)
+              }
+            })
+            .catch(err => {
+              alert("Error Connection. Please check your connection")
+              window.location.href = ' /login'
+            });
+    }
+  } else if(criteria_find === 'guru'){
+    return dispatch => {
+      axios.get(`http://127.0.0.1:3001/users/get_all_teachers`)
+            .then(response => {
+              if(response.data.status === 'success'){
+                dispatch(setAllUser(response.data.data))
+              } else {
+                alert(`${response.data.message_response}`)
+              }
+            })
+            .catch(err => {
+              alert("Error Connection. Please check your connection")
+            });
+    }
   }
+  
 }
 
-export const setAllSiswa = (responseData) =>{
+export const setAllUser = (responseData) =>{
   return {
-    type: 'SET_ALL_SISWA',
+    type: 'SET_ALL_USERS',
     payload:responseData
   }
 }
 
+export const createUser = (data_user) => {
+  return dispatch => {
+    axios.post(`http://127.0.0.1:3001/users/create_user`, data_user )
+          .then(response => {
+             if(response.data.status === "success"){
+                alert("Success input user")
+                if(data_user.role === 2){
+                  window.location.href = '/management_siswa' 
+                } else if(data_user.role === 3){
+                  window.location.href = '/management_guru' 
+                }                     
+             } else {
+               alert(response.data.message_response)
+             }
+          })
+          .catch(function (error) {
+            alert("Error Connection. Please check your connection")
+          });
+  }
+}
+
+export const deleteUser = (data_user) => {
+  return dispatch => {
+    axios.delete(`http://127.0.0.1:3001/users/delete_user`, {headers: {}, data:{id:data_user.id}} )
+          .then(response => {
+             if(response.data.status === "success"){
+                alert("Success hapus user")
+                dispatch(setDeleteOneUSer(response.data.data))                  
+             } else {
+               alert(response.data.message_response)
+             }
+          })
+          .catch(function (error) {
+            alert("Error Connection. Please check your connection")
+          });
+  }
+}
+
+export const setDeleteOneUSer = (responseData) =>{
+  return {
+    type: 'SET_DELETE_ONE_USER',
+    payload:responseData
+  }
+}
