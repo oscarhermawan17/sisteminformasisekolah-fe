@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from './Navbar'
 import FormCreateUpdateUser from './FormCreateUpdateUser'
 
-class CreateUser extends React.Component {
+class UpdateUser extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -15,10 +15,11 @@ class CreateUser extends React.Component {
     return (
       <div>
         <Navbar />
-        <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation}/>
+        <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation} edit='yes'/>
+        {console.log('hasil props U USER = ', this.props)}
       </div> 
     );
   }
 }
 
-export default CreateUser
+export default UpdateUser

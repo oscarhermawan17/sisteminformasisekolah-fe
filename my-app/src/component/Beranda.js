@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from './Navbar'
 import Profile from './Profile'
+import ListGuruMataPelajaran from './ListGuruMataPelajaran'
+import { connect } from 'react-redux'
 
 class Beranda extends React.Component {
   render(){
@@ -8,11 +10,21 @@ class Beranda extends React.Component {
       <div>
         <Navbar />
         <Profile/>
-        {console.log('m user', this.props)}
+        <ListGuruMataPelajaran />
       </div> 
     );
   }
-
 }
 
-export default Beranda
+const mapStateToProps = (state) =>{
+  return{
+      token:state.Token
+  } 
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Beranda)

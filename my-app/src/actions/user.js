@@ -1,8 +1,9 @@
 import axios from 'axios'
+import url from './Url'
 
 export const loginAction = (login) => {
   return dispatch => {
-    axios.post(`http://127.0.0.1:3001/login`, {
+    axios.post(`${url}/login`, {
             username: login.username,
             password: login.password
           })
@@ -21,9 +22,10 @@ export const loginAction = (login) => {
   }
 }
 
+// Token.js ==> reducers (SETTING TOKEN)
 export const setUserToken = (responseToken) =>{
   return {
-    type: 'SET_TOKEN_USER',
+    type: 'SET_TOKEN',
     payload:responseToken
   }
 }
@@ -34,10 +36,16 @@ export const log_Out = () => {
   }
 }
 
-export const getAllSiswa = (criteria_find) => {
+export const getSingleProfileUser = (token) => {
+  return dispatch => {
+    
+  }
+}
+
+export const getAllUsers = (criteria_find) => {
   if(criteria_find === 'siswa'){
     return dispatch => {
-      axios.get(`http://127.0.0.1:3001/users/get_all_students`)
+      axios.get(`${url}/users/get_all_students`)
             .then(response => {
               if(response.data.status === 'success'){
                 dispatch(setAllUser(response.data.data))
@@ -52,7 +60,7 @@ export const getAllSiswa = (criteria_find) => {
     }
   } else if(criteria_find === 'guru'){
     return dispatch => {
-      axios.get(`http://127.0.0.1:3001/users/get_all_teachers`)
+      axios.get(`${url}/users/get_all_teachers`)
             .then(response => {
               if(response.data.status === 'success'){
                 dispatch(setAllUser(response.data.data))
@@ -77,7 +85,7 @@ export const setAllUser = (responseData) =>{
 
 export const createUser = (data_user) => {
   return dispatch => {
-    axios.post(`http://127.0.0.1:3001/users/create_user`, data_user )
+    axios.post(`${url}/users/create_user`, data_user )
           .then(response => {
              if(response.data.status === "success"){
                 dispatch(inputOneUser(response.data.data))
@@ -101,7 +109,7 @@ export const inputOneUser = (responseData) =>{
 
 export const deleteUser = (data_user) => {
   return dispatch => {
-    axios.delete(`http://127.0.0.1:3001/users/delete_user`, {headers: {}, data:{id:data_user.id}} )
+    axios.delete(`${url}/users/delete_user`, {headers: {}, data:{id:data_user.id}} )
           .then(response => {
              if(response.data.status === "success"){
                 alert("Success hapus user")

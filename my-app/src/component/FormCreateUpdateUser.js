@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { createUser } from '../actions/User'
-import { Redirect } from 'react-router-dom';
-class TableCreateUser extends React.Component {
-    constructor(){
-        super()
+
+class FormCreateUpdateUser extends React.Component {
+    constructor(props){
+        super(props)
         this.state={
-            redirect:false,
             nomor_induk:"",
             nama_lengkap:"",
             gender:"0",  
@@ -14,10 +13,20 @@ class TableCreateUser extends React.Component {
             alamat:"",
             nomor_hp:"",
             password:"admin",
-        }
-        
+        }   
     }
 
+    componentDidMount(props, state){
+        if(this.props.edit === 'yes' ){           
+            let tmp = this.props.allSiswa.filter(siswa => parseInt(siswa.id) === parseInt(this.props.match.params.id))
+            this.setState({nomor_induk:tmp[0].nomor_induk})
+            this.setState({nama_lengkap:tmp[0].nama_lengkap})
+            this.setState({gender:tmp[0].gender})
+            this.setState({email:tmp[0].email})
+            this.setState({alamat:tmp[0].alamat})
+            this.setState({nomor_hp:tmp[0].nomor_hp})
+        }
+    }
 
     handleChange(e, name) {
         this.setState({ [name]: e.target.value });
@@ -29,6 +38,7 @@ class TableCreateUser extends React.Component {
             this.props.history.push('/management_siswa')
         } else if(this.props.user_navigation === 'guru'){
             this.props.toCreateUser({...this.state, role:3})
+            this.props.history.push('/management_guru')
         }         
     }
 
@@ -110,11 +120,17 @@ class TableCreateUser extends React.Component {
         ) 
     }
 }
-  
+
+const mapStateToProps = (state) =>{
+    return{
+        allSiswa:state.Siswa
+    } 
+}
+
 const mapDispatchToProps = (dispatch) =>{
     return{
         toCreateUser:(data)=>dispatch(createUser(data)),
     }
 }
 
-export default connect(null, mapDispatchToProps) (TableCreateUser)
+export default connect(mapStateToProps, mapDispatchToProps) (FormCreateUpdateUser)

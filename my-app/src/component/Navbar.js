@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 class Navbar extends React.Component {
   render(){
@@ -25,10 +26,9 @@ class Navbar extends React.Component {
                 Datar Nilai
               </a>
 
-
               <div className="navbar-item has-dropdown is-hoverable">
                 <span className="navbar-link">
-                  Atur Siswa / Guru
+                  Admin Panel
                 </span>
                 <div className="navbar-dropdown is-boxed">
                   <a className="navbar-item" href="/management_siswa">
@@ -37,7 +37,12 @@ class Navbar extends React.Component {
                   <a className="navbar-item" href="/management_guru">
                     Atur Guru
                   </a>
-              
+                  <a className="navbar-item" href="/management_kelas">
+                    Atur Kelas
+                  </a>
+                  <a className="navbar-item" href="/management_matpel">
+                    Atur Mata Pelajaran
+                  </a>
                 </div>
               </div>
 

@@ -2,11 +2,10 @@ import React from 'react';
 import ListSiswa  from './ListSiswa.module.sass'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getAllSiswa, deleteUser } from '../actions/User'
+import { getAllUsers, deleteUser } from '../actions/User'
 
-class ListSiswaComponent extends React.Component {
-    constructor(props){
-        
+class ListUserComponent extends React.Component {
+    constructor(props){ 
         super(props)
         this.state = {
             button_delete:"modal",
@@ -18,14 +17,13 @@ class ListSiswaComponent extends React.Component {
     }
 
     componentDidMount(){
-        this.props.toGetAllSiswa(this.props.user_navigation)
+        this.props.toGetAllUsers(this.props.user_navigation)
     }
 
     deleteUser(){
         this.props.toDeleteUser(this.state.tmp_id_ongoing_delete)
         this.setState({button_delete:"modal"})
     }
-
 
     render(){
         let props = this.props
@@ -78,25 +76,39 @@ class ListSiswaComponent extends React.Component {
                                 </td>
                             </tr>
                             
-                            { this.props.allSiswa === null ? null : 
-                                this.props.allSiswa.map(siswa => {
+                            { this.props.allUsers === null ? null : 
+                                this.props.allUsers.map(user => {
                                     return(
-                                        <tr key={siswa.id}>
+                                        <tr key={user.id}>
                                             <td className={ListSiswa.lebar10}>
-                                                {siswa.nomor_induk}
+                                                {user.nomor_induk}
                                             </td>
                                             <td className={ListSiswa.lebar30}>
-                                                {siswa.nama_lengkap}
+                                                {user.nama_lengkap}
                                             </td>
                                             <td className={ListSiswa.lebar10}>
-                                                {siswa.gender}
+                                                {user.gender}
                                             </td>
                                             <td>
                                                 Kelas
                                             </td>
                                             <td className={ListSiswa.lebar25}>
-                                                <a className="button is-info">Ubah</a> &nbsp;
-                                                <a className="button is-danger" onClick={() => this.setState({button_delete:"modal is-active"}, () => this.setState({tmp_id_ongoing_delete:siswa}))}>Hapus</a>
+                                                {   this.props.user_navigation === 'siswa' ?
+                                                    <Link to={{
+                                                        pathname:`/ubah_siswa/${user.id}`,
+                                                        edit:user
+                                                    }}>
+                                                        <a className="button is-info">Ubah</a> &nbsp;
+                                                    </Link> : this.props.user_navigation === 'guru' ?
+                                                    <Link to={{
+                                                        pathname:`/ubah_guru/${user.id}`,
+                                                        edit:user
+                                                    }}>
+                                                        <a className="button is-info">Ubah</a> &nbsp;
+                                                    </Link> : null
+                                                }    
+                                                
+                                                <a className="button is-danger" onClick={() => this.setState({button_delete:"modal is-active"}, () => this.setState({tmp_id_ongoing_delete:user}))}>Hapus</a>
                                             </td>
                                         </tr>
                                     )
@@ -131,17 +143,17 @@ class ListSiswaComponent extends React.Component {
 
 const mapStateToProps = (state) =>{
     return{
-        allSiswa:state.Siswa
+        allUsers:state.User
     } 
 }
   
 const mapDispatchToProps = (dispatch) =>{
     return{
-      toGetAllSiswa:(criteria_find)=>dispatch(getAllSiswa(criteria_find)),
+      toGetAllUsers:(criteria_find)=>dispatch(getAllUsers(criteria_find)),
       toDeleteUser:(user)=>dispatch(deleteUser(user)),
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (ListSiswaComponent)
+export default connect(mapStateToProps, mapDispatchToProps) (ListUserComponent)
 
 
