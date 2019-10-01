@@ -37,11 +37,11 @@ class Navbar extends React.Component {
                   <a className="navbar-item" href="/management_guru">
                     Atur Guru
                   </a>
-                  <a className="navbar-item" href="/management_kelas">
-                    Atur Kelas
-                  </a>
                   <a className="navbar-item" href="/management_matpel">
                     Atur Mata Pelajaran
+                  </a>
+                  <a className="navbar-item" href="/management_guru_matpel">
+                    Atur Guru Mata Pelajaran
                   </a>
                 </div>
               </div>

@@ -66,16 +66,12 @@ class FormCreateUpdateMataPelajaran extends React.Component {
     }
 }
 
-const mapStateToProps = (state) =>{
-    return{
+const mapStateToProps = (state) => ({
         allSiswa:state.MataPelajaran
-    } 
-}
+})
 
-const mapDispatchToProps = (dispatch) =>{
-    return{
+const mapDispatchToProps = (dispatch) => ({
         toCreateMataPelajaran:(data)=>dispatch(createMataPelajaran(data)),
-    }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps) (FormCreateUpdateMataPelajaran)

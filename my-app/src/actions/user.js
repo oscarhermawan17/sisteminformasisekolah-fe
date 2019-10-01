@@ -3,7 +3,7 @@ import url from './Url'
 
 export const loginAction = (login) => {
   return dispatch => {
-    axios.post(`${url}/login`, {
+    axios.post(`${url}/auth/login`, {
             username: login.username,
             password: login.password
           })
@@ -127,6 +127,29 @@ export const deleteUser = (data_user) => {
 export const setDeleteOneUSer = (responseData) =>{
   return {
     type: 'SET_DELETE_ONE_USER',
+    payload:responseData
+  }
+}
+
+export const getGuruByName = (value_input_name) => {
+  return dispatch => {
+    axios.post(`${url}/users/get_guru_by_name`, {value:value_input_name})
+            .then(response => {
+              if(response.data.status === 'success'){
+                dispatch(setGuruByName(response.data.data))
+              } else {
+                alert(`${response.data.message_response}`)
+              }
+            })
+            .catch(err => {
+              alert("Error Connection. Please check your connection")
+            });
+  }
+}
+
+export const setGuruByName = (responseData) =>{
+  return {
+    type: 'SET_GURU_BY_NAME',
     payload:responseData
   }
 }

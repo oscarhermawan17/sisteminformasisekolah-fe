@@ -141,18 +141,14 @@ class ListUserComponent extends React.Component {
     }
 }
 
-const mapStateToProps = (state) =>{
-    return{
+const mapStateToProps = (state) => ({
         allUsers:state.User
-    } 
-}
+})
   
-const mapDispatchToProps = (dispatch) =>{
-    return{
+const mapDispatchToProps = (dispatch) => ({
       toGetAllUsers:(criteria_find)=>dispatch(getAllUsers(criteria_find)),
       toDeleteUser:(user)=>dispatch(deleteUser(user)),
-    }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps) (ListUserComponent)
 

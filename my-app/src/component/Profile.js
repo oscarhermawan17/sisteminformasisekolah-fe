@@ -100,16 +100,12 @@ class Profile extends React.Component {
     }  
 }
 
-const mapStateToProps = (state) =>{
-    return{
+const mapStateToProps = (state) => ({ 
         user:state.User
-    } 
-}
+})
 
-const mapDispatchToProps = (dispatch) =>{
-    return{
+const mapDispatchToProps = (dispatch) => ({
         toGetSingleProfileUser:(data)=>dispatch(getSingleProfileUser(data)),
-    }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps) (Profile)

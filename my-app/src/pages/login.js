@@ -1,7 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { loginAction } from '../actions/User'
-import './page.css'
+
+const css = {
+  login_area : {
+    margin:"0 auto",
+    paddingTop:"50px",   
+    maxWidth:"800px"
+  },
+  button_login : {
+    marginTop: "6px",
+    width: "100%",
+    fontSize: "20px"
+  },
+  login_box : {
+    backgroundColor: "rgb(75, 12, 221)",
+    padding:"40px"
+  },
+  form_margin_top:{
+    marginTop: "6px"
+  }
+}
 
 class login extends React.Component {
   constructor(){
@@ -10,7 +29,10 @@ class login extends React.Component {
       username : "",
       password : ""
     }
+    
   }
+
+  
 
   handleChange(event, value) {
     this.setState({[value]: event.target.value});
@@ -23,16 +45,18 @@ class login extends React.Component {
   render(){
     return (
       <div className="login">
-        <div className="login-area"> 
+        <div style={css.login_area}> 
           <center>SISTEM INFORMASI NEO GAMECENTER</center><br/>
-          <div className="login-box"> 
-            <div className="form-group">
-              <input type="email" className="form-control" placeholder="Masukkan Nis atau Username" onChange={(e) => this.handleChange(e, 'username')}/>
+          <div style={css.login_box}> 
+            <div style={css.form_margin_top}>
+              <input className="input" type="emal" placeholder="Masukkan Nis atau Username" onChange={(e) => this.handleChange(e, 'username')}/>
             </div>
-            <div className="form-group">
-              <input type="password" className="form-control" placeholder="Kata Sandi" onChange={(e) => this.handleChange(e, 'password')} />
+
+            <div style={css.form_margin_top}>
+              <input className="input" type="password" placeholder="Kata Sandi" onChange={(e) => this.handleChange(e, 'password')} />
             </div>
-            <button className="btn btn-primary" onClick={() => this.login()}>Submit</button>
+
+            <button style={css.button_login} onClick={() => this.login()}>Submit</button>
           </div> 
         </div>
        </div> 

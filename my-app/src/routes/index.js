@@ -1,45 +1,64 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useSelector } from 'react-redux'
+import axios from 'axios'
+
+
 import Login from '../pages/login'
-import Beranda from '../component/Beranda'
-import ManagementUser from '../component/ManagementUser'
-import ManagementKelas from '../component/ManagementKelas'
-import CreateUser from '../component/CreateUser'
-import CreateMataPelajaran from '../component/CreateMataPelajaran'
-import UpdateUser from '../component/UpdateUser'
-import ManagementMatPel from '../component/ManagementMatPel'
-
-
-import { Provider } from 'react-redux'
-import { store,  persistor } from '../store/configureStore'
-import { PersistGate } from 'redux-persist/integration/react'
-
+import LandingPage from '../component/LandingPage'
 import { BrowserRouter,  Route, Switch } from 'react-router-dom';
 
-export default () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/login" component={Login} />
+const App = (props) => {
+  const token = useSelector(
+      state => state.Token
+  );
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.post(`http://127.0.0.1:3001/auth/verify_token`, {token: token })
+      if(response.data)
+        setAuth(true)
+    }
+    fetchData();
+  }, [auth]);
+
+  return (
+    <BrowserRouter>
+      <Switch>
+
+        { auth === false ? 
+          <Switch>
+            <Route path="/" component={Login} />     
+          </Switch> : 
+          <Switch>
+            <Route path="/login" component={Login} />
           
-          <Route path="/management_siswa" render={(props )=> <ManagementUser {...props} user_navigation="siswa"/>} />
-          <Route path="/tambah_siswa"  render={(props )=>  <CreateUser {...props} user_navigation="siswa" />} />
-          <Route path="/ubah_siswa/:id"  render={(props )=>  <UpdateUser {...props} user_navigation="siswa" />} />
+            <Route path="/management_siswa" render={(props )=> <LandingPage {...props} user_navigation="siswa"/>} />
+            <Route path="/tambah_siswa"  render={(props )=>  <LandingPage {...props} user_navigation="create_siswa" />} />
+            <Route path="/ubah_siswa/:id"  render={(props )=>  <LandingPage {...props} user_navigation="update_siswa" />} />
+    
+            <Route path="/management_guru" render={(props )=> <LandingPage {...props} user_navigation="guru"/>} />
+            <Route path="/tambah_guru"  render={(props )=>  <LandingPage {...props} user_navigation="create_guru" />} />
+            <Route path="/ubah_guru/:id"  render={(props )=>  <LandingPage {...props} user_navigation="update_guru" />} />
+    
+            {/* <Route path="/management_kelas" render={(props )=> <ManagementKelas/>} /> */}
 
-          <Route path="/management_guru" render={(props )=> <ManagementUser {...props} user_navigation="guru"/>} />
-          <Route path="/tambah_guru"  render={(props )=>  <CreateUser {...props} user_navigation="guru" />} />
-          <Route path="/ubah_guru/:id"  render={(props )=>  <UpdateUser {...props} user_navigation="guru" />} />
-
-          <Route path="/management_kelas" render={(props )=> <ManagementKelas/>} />
+            <Route path="/management_guru_matpel" render={(props )=> <LandingPage {...props} user_navigation="management_guru_matpel"/>} />
+            {/* <Route path="/tambah_guru_matpel"  render={(props )=>  <LandingPage {...props} user_navigation="create_guru" />} />
+            <Route path="/ubah_guru_matpe;/:id"  render={(props )=>  <LandingPage {...props} user_navigation="update_guru" />} /> */}
 
 
-          <Route path="/tambah_mata_pelajaran"  render={(props )=>  <CreateMataPelajaran {...props} user_navigation="siswa" />} />
-          <Route path="/management_matpel" render={(props )=> <ManagementMatPel/>} />
-          
-          
-          <Route path="/" exact component={Beranda} />
-        </Switch>
-      </BrowserRouter>
-    </PersistGate>  
-  </Provider>
-)
+            <Route path="/tambah_mata_pelajaran"  render={(props )=>  <LandingPage {...props} user_navigation="create_matpel" />} />
+            <Route path="/management_matpel"  render={(props )=>  <LandingPage {...props} user_navigation="management_matpel" />} />
+            
+            
+            <Route path="/" render={(props )=>  <LandingPage {...props} user_navigation="profile" />} />
+          </Switch>  
+        }
+        
+      </Switch>
+    </BrowserRouter>
+  );
+}
+
+export default App

@@ -11,6 +11,8 @@ export default(state = initialState, action) =>{
   } else if(action.type === 'SET_DELETE_ONE_USER'){
     let tmp = state.filter( user => user.id !== action.payload.id )
     return tmp;
+  } else if(action.type === 'SET_GURU_BY_NAME'){
+    return action.payload
   }
   return state
 }

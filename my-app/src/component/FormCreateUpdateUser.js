@@ -16,9 +16,9 @@ class FormCreateUpdateUser extends React.Component {
         }   
     }
 
-    componentDidMount(props, state){
-        if(this.props.edit === 'yes' ){           
-            let tmp = this.props.allSiswa.filter(siswa => parseInt(siswa.id) === parseInt(this.props.match.params.id))
+    componentDidMount(){
+        if(this.props.edit === 'yes' ){          
+            let tmp = this.props.allUsers.filter(siswa => parseInt(siswa.id) === parseInt(this.props.match.params.id))
             this.setState({nomor_induk:tmp[0].nomor_induk})
             this.setState({nama_lengkap:tmp[0].nama_lengkap})
             this.setState({gender:tmp[0].gender})
@@ -33,10 +33,10 @@ class FormCreateUpdateUser extends React.Component {
     }
 
     createUser(){
-        if(this.props.user_navigation === 'siswa'){
+        if(this.props.user_navigation === 'create_siswa'){
             this.props.toCreateUser({...this.state, role:2})
             this.props.history.push('/management_siswa')
-        } else if(this.props.user_navigation === 'guru'){
+        } else if(this.props.user_navigation === 'create_guru'){
             this.props.toCreateUser({...this.state, role:3})
             this.props.history.push('/management_guru')
         }         
@@ -121,16 +121,12 @@ class FormCreateUpdateUser extends React.Component {
     }
 }
 
-const mapStateToProps = (state) =>{
-    return{
-        allSiswa:state.Siswa
-    } 
-}
+const mapStateToProps = (state) => ({
+    allUsers:state.User
+})
 
-const mapDispatchToProps = (dispatch) =>{
-    return{
-        toCreateUser:(data)=>dispatch(createUser(data)),
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+    toCreateUser:(data)=>dispatch(createUser(data)),
+})
 
 export default connect(mapStateToProps, mapDispatchToProps) (FormCreateUpdateUser)

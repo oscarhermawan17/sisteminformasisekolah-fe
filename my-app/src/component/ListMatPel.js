@@ -22,7 +22,6 @@ class ListMatPel extends React.Component {
     }
 
     render(){
-        let props = this.props
         return (
         <div>
             <div>
@@ -114,18 +113,14 @@ class ListMatPel extends React.Component {
     }
 }
 
-const mapStateToProps = (state) =>{
-    return{
+const mapStateToProps = (state) => ({
         allMataPelajarans:state.MataPelajaran
-    } 
-}
+})
   
-const mapDispatchToProps = (dispatch) =>{
-    return{
+const mapDispatchToProps = (dispatch) => ({
       toGetAllMataPelajaran:()=>dispatch(getAllMataPelajaran()),
       toDeleteMataPelajaran:(mata_pelajaran)=>dispatch(deleteMataPelajaran(mata_pelajaran)),
-    }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps) (ListMatPel)
 
