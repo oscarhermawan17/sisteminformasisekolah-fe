@@ -8,7 +8,7 @@ class FormCreateUpdateUser extends React.Component {
         this.state={
             nomor_induk:"",
             nama_lengkap:"",
-            gender:"0",  
+            gender:"",  
             email:"",
             alamat:"",
             nomor_hp:"",
@@ -28,6 +28,14 @@ class FormCreateUpdateUser extends React.Component {
         }
     }
 
+    componentDidUpdate(){
+        if(this.props.user_navigation === 'create_siswa' && this.props.changeUrl === true){
+            this.props.history.push('/management_siswa')
+        } else if(this.props.user_navigation === 'create_guru' && this.props.changeUrl === true){
+            this.props.history.push('/management_guru')
+        }
+    }
+
     handleChange(e, name) {
         this.setState({ [name]: e.target.value });
     }
@@ -35,10 +43,8 @@ class FormCreateUpdateUser extends React.Component {
     createUser(){
         if(this.props.user_navigation === 'create_siswa'){
             this.props.toCreateUser({...this.state, role:2})
-            this.props.history.push('/management_siswa')
         } else if(this.props.user_navigation === 'create_guru'){
             this.props.toCreateUser({...this.state, role:3})
-            this.props.history.push('/management_guru')
         }         
     }
 
@@ -48,7 +54,6 @@ class FormCreateUpdateUser extends React.Component {
                 <div className="title-profile">
                     TAMBAH {this.props.user_navigation.toUpperCase() }
                 </div>
-
                 <div className="content-with-padding-10">
                     <table className="table">
                         <tr>
@@ -75,8 +80,8 @@ class FormCreateUpdateUser extends React.Component {
                             <div class="field has-addons">
                                 <div class="control is-expanded">
                                     <div class="select is-fullwidth is-info">
-                                    <select name="country" onChange={(e) => this.handleChange(e, 'gender')}>
-                                        <option value="0">Pilih Jenis Kelamin</option>
+                                    <select name="country" value={this.state.gender} onChange={(e) => this.handleChange(e, 'gender')}>
+                                        <option value="">Pilih Jenis Kelamin</option>
                                         <option value="Pria">Pria</option>
                                         <option value="Wanita">Wanita</option>
                                     </select>
@@ -122,7 +127,8 @@ class FormCreateUpdateUser extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    allUsers:state.User
+    allUsers:state.User,
+    changeUrl:state.ChangeUrl
 })
 
 const mapDispatchToProps = (dispatch) => ({

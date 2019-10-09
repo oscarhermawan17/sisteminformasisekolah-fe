@@ -1,16 +1,10 @@
 import React from 'react';
 import './Style.sass';
 import { connect } from 'react-redux'
-// import { getSingleProfileUser } from '../actions/User'
-import { getSingleProfileUser } from '../actions/User'
 
 class Profile extends React.Component {
     constructor(){
         super()
-    }
-
-    componentDidMount(){
-        this.props.toGetSingleProfileUser('oke')
     }
 
     render(){
@@ -31,10 +25,10 @@ class Profile extends React.Component {
                                 <table className="table">
                                     <tr>
                                         <td>
-                                            NIK
+                                            {this.props.role === '1' ? 'ADMIN' : this.props.role === '2' ? 'Nomor Induk' : 'Nomor Induk Pegawai'}
                                         </td>
                                         <td className="lebar">
-                                            oke
+                                            {this.props.role === '2' ? this.props.profile.nomor_induk : this.props.profile.nomor_induk_pegawai}
                                         </td>
                                     </tr>
                                     <tr>
@@ -42,7 +36,7 @@ class Profile extends React.Component {
                                             Nama Lengkap
                                         </td>
                                         <td>
-                                            Drajat Saifuloh
+                                         {this.props.profile.nama_lengkap}
                                         </td>
                                     </tr>
 
@@ -51,7 +45,7 @@ class Profile extends React.Component {
                                             Jenis Kelamin
                                         </td>
                                         <td>
-                                            Waria
+                                            {this.props.profile.gender}
                                         </td>
                                     </tr>
 
@@ -60,7 +54,7 @@ class Profile extends React.Component {
                                             Email
                                         </td>
                                         <td>
-                                            waria@waria.com
+                                            {this.props.profile.email}
                                         </td>
                                     </tr>
 
@@ -78,7 +72,7 @@ class Profile extends React.Component {
                                             No Telpon
                                         </td>
                                         <td>
-                                            081701000888
+                                            {this.props.profile.nomor_hp}
                                         </td>
                                     </tr>
 
@@ -87,7 +81,7 @@ class Profile extends React.Component {
                                             Alamat
                                         </td>
                                         <td>
-                                            BTN Sanggulan, Neo Game Center
+                                            {this.props.profile.alamat}
                                         </td>
                                     </tr>
                                 </table>
@@ -100,12 +94,8 @@ class Profile extends React.Component {
     }  
 }
 
-const mapStateToProps = (state) => ({ 
-        user:state.User
+const mapStateToProps = (state) => ({
+    profile:state.Profile
 })
 
-const mapDispatchToProps = (dispatch) => ({
-        toGetSingleProfileUser:(data)=>dispatch(getSingleProfileUser(data)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps) (Profile)
+export default connect(mapStateToProps, null) (Profile)

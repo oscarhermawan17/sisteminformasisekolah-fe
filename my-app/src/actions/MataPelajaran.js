@@ -1,5 +1,6 @@
 import axios from 'axios'
 import url from './Url'
+import { changeUrlFalse, changeUrlTrue } from './ChangeUrl'
 
 //GET ALL MATA PELAJARAN
 export const getAllMataPelajaran = () => {
@@ -33,7 +34,8 @@ export const createMataPelajaran = (data_mata_pelajaran) => {
           .then(response => {
              if(response.data.status === "success"){
                 dispatch(inputOneMataPelajaran(response.data.data))
-                alert("Success input mata pelajaran")        
+                alert("Success input mata pelajaran")
+                dispatch(changeUrlTrue())    
              } else {
                alert(response.data.message_response)
              }
@@ -48,6 +50,24 @@ export const inputOneMataPelajaran = (responseData) =>{
   return {
     type: 'INPUT_ONE_MATA_PELAJARAN',
     payload:responseData
+  }
+}
+
+export const updateMataPelajaran = (data, token) => {
+  let obj = { ...data, token}
+  return dispatch => {
+    axios.put(`${url}/mata_pelajaran/update_mata_pelajaran/${data.params}`, obj )
+          .then(response => {
+             if(response.data.status === "success"){
+                alert("Success input mata pelajaran")
+                dispatch(changeUrlTrue())    
+             } else {
+                alert(response.data.message_response)
+             }
+          })
+          .catch(function (error) {
+            alert("Error Connection. Please check your connection")
+          });
   }
 }
 

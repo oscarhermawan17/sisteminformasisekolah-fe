@@ -64,13 +64,6 @@ class login extends React.Component {
   }
 }
 
-
-const mapStateToProps = (state) =>{
-  return{
-    
-  }
-}
-
 const mapDispatchToProps = (dispatch) =>{
   return{
     tryLogin:(data_login)=>dispatch(loginAction(data_login))
@@ -78,4 +71,4 @@ const mapDispatchToProps = (dispatch) =>{
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (login)
+export default connect(null, mapDispatchToProps) (login)

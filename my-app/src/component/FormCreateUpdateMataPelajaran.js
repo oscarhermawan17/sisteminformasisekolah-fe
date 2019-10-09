@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { createMataPelajaran } from '../actions/MataPelajaran'
+import { createMataPelajaran, updateMataPelajaran } from '../actions/MataPelajaran'
 
 class FormCreateUpdateMataPelajaran extends React.Component {
     constructor(props){
@@ -11,16 +11,18 @@ class FormCreateUpdateMataPelajaran extends React.Component {
         }   
     }
 
-    componentDidMount(props, state){
-        // if(this.props.edit === 'yes' ){           
-        //     let tmp = this.props.allSiswa.filter(siswa => parseInt(siswa.id) === parseInt(this.props.match.params.id))
-        //     this.setState({nomor_induk:tmp[0].nomor_induk})
-        //     this.setState({nama_lengkap:tmp[0].nama_lengkap})
-        //     this.setState({gender:tmp[0].gender})
-        //     this.setState({email:tmp[0].email})
-        //     this.setState({alamat:tmp[0].alamat})
-        //     this.setState({nomor_hp:tmp[0].nomor_hp})
-        // }
+    componentDidMount(){
+        if(this.props.edit === 'yes' ){          
+            let tmp = this.props.allMataPelajaran.filter(mata_pelajaran => parseInt(mata_pelajaran.id) === parseInt(this.props.match.params.id))
+            this.setState({nama_mata_pelajaran:tmp[0].nama_mata_pelajaran})
+            this.setState({deskripsi:tmp[0].deskripsi})
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.props.changeUrl === true){
+            this.props.history.push('/management_matpel')
+        }
     }
 
     handleChange(e, name) {
@@ -28,8 +30,11 @@ class FormCreateUpdateMataPelajaran extends React.Component {
     }
 
     createMataPelajaran(){
-        this.props.toCreateMataPelajaran(this.state)
-        this.props.history.push('/management_matpel')      
+        let token = 0
+        if(this.props.edit === 'yes' )
+            this.props.toUpdateMataPelajaran({...this.state, params:this.props.match.params.id}, token)
+        else 
+            this.props.toCreateMataPelajaran(this.state)    
     }
 
     render(){
@@ -46,7 +51,7 @@ class FormCreateUpdateMataPelajaran extends React.Component {
                                 Nama mata pelajatan
                             </td>
                             <td>
-                                <input className="input is-info" type="text" placeholder="Masukkan Nama Mata Pelajran" onChange={(e) => this.handleChange(e, 'nama_mata_pelajaran')}/>
+                                <input className="input is-info" value={this.state.nama_mata_pelajaran} type="text" placeholder="Masukkan Nama Mata Pelajran" onChange={(e) => this.handleChange(e, 'nama_mata_pelajaran')}/>
                             </td>                         
                         </tr>                                              
                         <tr>
@@ -54,7 +59,7 @@ class FormCreateUpdateMataPelajaran extends React.Component {
                                 Deskripsi Mata Pelajaran
                             </td>
                             <td>
-                                <textarea className="textarea is-info" placeholder="Isikan dengan alamat lengkap"  onChange={(e) => this.handleChange(e, 'deskripsi')}></textarea>
+                                <textarea className="textarea is-info" value={this.state.deskripsi} placeholder="Isikan dengan alamat lengkap"  onChange={(e) => this.handleChange(e, 'deskripsi')}></textarea>
                             </td>                           
                         </tr>                                         
                     </table>
@@ -67,11 +72,13 @@ class FormCreateUpdateMataPelajaran extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-        allSiswa:state.MataPelajaran
+        allMataPelajaran:state.MataPelajaran,
+        changeUrl:state.ChangeUrl
 })
 
 const mapDispatchToProps = (dispatch) => ({
         toCreateMataPelajaran:(data)=>dispatch(createMataPelajaran(data)),
+        toUpdateMataPelajaran:(data, token)=>dispatch(updateMataPelajaran(data, token)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (FormCreateUpdateMataPelajaran)

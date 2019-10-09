@@ -111,17 +111,17 @@ class ListGuruMataPelajaran extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-        allGurusByNameInput:state.User,
-        allMataPelajarans:state.MataPelajaran,
-        allGuruMataPelajaran:state.GuruMataPelajaran
+    allGurusByNameInput:state.User,
+    allMataPelajarans:state.MataPelajaran,
+    allGuruMataPelajaran:state.GuruMataPelajaran
 })
   
 const mapDispatchToProps = (dispatch) => ({
-        toAddGuruFromSearchBar:(data)=>dispatch(addGuruFromSearchBar(data)),
-        toGetGuruByName:(name_input)=>dispatch(getGuruByName(name_input)), // For Triger Search
-        toGetAllMataPelajaran:()=>dispatch(getAllMataPelajaran()), // For Menu (left bar) 
-        toGetAllGuruByIdMataPelajaran:(id_mata_pelajaran)=>dispatch(getAllGuruByIdMataPelajaran(id_mata_pelajaran)), // For Get All Guru By Mata Pelajaran
-        toDeleteGuruMataPelajaran:(guru)=>dispatch(deleteGuruMataPelajaran(guru))
+    toAddGuruFromSearchBar:(data)=>dispatch(addGuruFromSearchBar(data)),
+    toGetGuruByName:(name_input)=>dispatch(getGuruByName(name_input)), // For Triger Search
+    toGetAllMataPelajaran:()=>dispatch(getAllMataPelajaran()), // For Menu (left bar) 
+    toGetAllGuruByIdMataPelajaran:(id_mata_pelajaran)=>dispatch(getAllGuruByIdMataPelajaran(id_mata_pelajaran)), // For Get All Guru By Mata Pelajaran
+    toDeleteGuruMataPelajaran:(guru)=>dispatch(deleteGuruMataPelajaran(guru))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (ListGuruMataPelajaran)

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import url from './Url'
+import { changeUrlFalse, changeUrlTrue } from './ChangeUrl'
 
 export const loginAction = (login) => {
   return dispatch => {
@@ -9,7 +10,7 @@ export const loginAction = (login) => {
           })
           .then(response => {
             if(response.data.status === 'success'){
-              dispatch(setUserToken(response.data.token))
+              dispatch(setUserToken(response.data.data.token))
               window.location.href = '/'
             } else {
               alert(`${response.data.message_response}`)
@@ -22,7 +23,7 @@ export const loginAction = (login) => {
   }
 }
 
-// Token.js ==> reducers (SETTING TOKEN)
+// AUTH.js ==> reducers (SETTING TOKEN FOR AUTH)
 export const setUserToken = (responseToken) =>{
   return {
     type: 'SET_TOKEN',
@@ -30,17 +31,14 @@ export const setUserToken = (responseToken) =>{
   }
 }
 
+
+
 export const log_Out = () => {
   return {
     type: 'LOG_OUT',
   }
 }
 
-export const getSingleProfileUser = (token) => {
-  return dispatch => {
-    
-  }
-}
 
 export const getAllUsers = (criteria_find) => {
   if(criteria_find === 'siswa'){
@@ -89,7 +87,8 @@ export const createUser = (data_user) => {
           .then(response => {
              if(response.data.status === "success"){
                 dispatch(inputOneUser(response.data.data))
-                alert("Success input user")        
+                alert('Input Sukses')
+                dispatch(changeUrlTrue())
              } else {
                alert(response.data.message_response)
              }

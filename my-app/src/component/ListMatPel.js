@@ -1,4 +1,5 @@
 import React from 'react';
+import ListSiswa  from './ListSiswa.module.sass'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getAllMataPelajaran, deleteMataPelajaran } from '../actions/MataPelajaran'
@@ -32,12 +33,12 @@ class ListMatPel extends React.Component {
                     
                     <div className="content-with-padding-10">
                         <div>
-                            <div>     
+                            <div className={ListSiswa.content_left}>       
                                 <Link to="/tambah_mata_pelajaran">
                                     <span className="button is-info">Tambah Mata Pelajaran Baru</span>
                                 </Link>
                             </div>
-                            <div>
+                            <div className={ListSiswa.content_right}>
                                 <a className="button is-info">Search</a> &nbsp;
                                 <a className="button is-info">Cari</a>
                             </div> 

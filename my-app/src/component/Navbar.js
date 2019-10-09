@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { log_Out } from '../actions/User'
+
 
 class Navbar extends React.Component {
   render(){
@@ -53,21 +56,10 @@ class Navbar extends React.Component {
 
             <div className="navbar-end">
               <div className="navbar-item">
-                <div className="field is-grouped">
-                  <p className="control">
-                    <a className="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="http://localhost:4000" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=http://localhost:4000&amp;via=jgthms">
-                      <span className="icon">
-                        <i className="fab fa-twitter"></i>
-                      </span>
-                      <span>
-                        Keluar
-                      </span>
-                    </a>
-                  </p>
-                  
-                </div>
+                  <span className="button is-danger" onClick={() => this.props.toLog_out()}>Keluar</span>
               </div>
             </div>
+
           </div>
         </nav>
       </div> 
@@ -76,4 +68,8 @@ class Navbar extends React.Component {
   
 }
 
-export default Navbar
+const mapDispatchToProps = dispatch => ({
+  toLog_out:()=>dispatch(log_Out()),
+})
+
+export default connect(null, mapDispatchToProps) (Navbar)

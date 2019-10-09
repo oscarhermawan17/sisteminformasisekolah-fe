@@ -1,45 +1,57 @@
 import React from 'react';
 import Navbar from './Navbar'
+import { connect } from 'react-redux'
 
+import { changeUrlFalse } from '../actions/ChangeUrl'
 import Profile from './Profile'
+import Page404 from './Page404'
 import ListGuruMataPelajaran from './ListGuruMataPelajaran'
 import ListUserComponent from './ListUserComponent'
 import ListMatPel from './ListMatPel'
 
 
 import FormCreateUpdateMataPelajaran from './FormCreateUpdateMataPelajaran'
-import { connect } from 'react-redux'
-
-
 import FormCreateUpdateUser from './FormCreateUpdateUser'
 
 class LandingPage extends React.Component {
-  constructor(){
-    super()
-    this.state={
-      auth: "non"
-    }
+  componentDidUpdate(){
+    this.props.toChangeUrlFalse()
   }
 
-  componentDidMount(){
-    
-  }
 
   siwtchComponent(props){
-    switch(props.user_navigation){
-      case 'create_siswa' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation}/>;
-      case 'create_guru' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation}/>;
-      case 'update_siswa' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation} edit='yes'/>
-      case 'update_guru' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation} edit='yes'/>
-      case 'siswa': return <ListUserComponent {...props} user_navigation={this.props.user_navigation} />
-      case 'guru': return <ListUserComponent {...props} user_navigation={this.props.user_navigation} />
-      case 'create_matpel' : return <FormCreateUpdateMataPelajaran {...props} user_navigation={this.props.user_navigation}/>; 
-      case 'management_guru_matpel' : return <ListGuruMataPelajaran />
-      case 'management_matpel' : return <ListMatPel />
-      case 'profile' : return <Profile/>;
-      default : return <div> kosong </div>
+    if(props.role === 1){
+      switch(props.user_navigation){
+        // CRUD USER 
+        case 'siswa': return <ListUserComponent {...props} user_navigation={this.props.user_navigation} />
+        case 'create_siswa' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation}/>;
+        case 'update_siswa' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation} edit='yes'/>
+        case 'guru': return <ListUserComponent {...props} user_navigation={this.props.user_navigation} />
+        case 'create_guru' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation}/>;
+        case 'update_guru' : return <FormCreateUpdateUser {...props} user_navigation={this.props.user_navigation} edit='yes'/>
+        // CRUD MATPEL
+        case 'management_matpel' : return <ListMatPel />
+        case 'create_matpel' : return <FormCreateUpdateMataPelajaran {...props} user_navigation={this.props.user_navigation}/>; 
+        case 'update_matpel' : return <FormCreateUpdateMataPelajaran {...props} user_navigation={this.props.user_navigation} edit='yes'/>
+        // CRUD GURU_MATPEL
+        case 'management_guru_matpel' : return <ListGuruMataPelajaran />
+        case 'profile' : return <Profile role="1"/>;
+        case '404' : return <Page404 />
+        default : return <Page404 />
+      } 
+    } else if(props.role === 2){
+        switch(props.user_navigation){
+          case 'profile' : return <Profile role="2"/>;
+          case '404' : return <Page404 />
+          default : return <Page404 />
+        }
+    } else if(props.role === 3){
+        switch(props.user_navigation){
+          case 'profile' : return <Profile role="3" />;
+          case '404' : return <Page404 />
+          default : return <Page404 />
+        }
     }
-
   }
 
   render(){
@@ -53,13 +65,8 @@ class LandingPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  token:state.Token
+const mapDispatchToProps = (dispatch) => ({
+  toChangeUrlFalse:()=>dispatch(changeUrlFalse()),
 })
 
-const mapDispatchToProps = (dispatch) =>{
-  return{
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps) (LandingPage)
+export default connect(null, mapDispatchToProps) (LandingPage)
