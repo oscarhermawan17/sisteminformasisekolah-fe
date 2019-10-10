@@ -119,7 +119,7 @@ class FormCreateUpdateUser extends React.Component {
                         </tr>                    
                     </table>
 
-                    <a className="button is-info" onClick={() => this.createUser()}>Tambahkan</a>
+                    <span className="button is-info" onClick={() => this.createUser()}>Tambahkan</span>
                 </div>               
             </div>
         ) 

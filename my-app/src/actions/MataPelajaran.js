@@ -1,6 +1,6 @@
 import axios from 'axios'
 import url from './Url'
-import { changeUrlFalse, changeUrlTrue } from './ChangeUrl'
+import { changeUrlTrue } from './ChangeUrl'
 
 //GET ALL MATA PELAJARAN
 export const getAllMataPelajaran = () => {
@@ -59,8 +59,8 @@ export const updateMataPelajaran = (data, token) => {
     axios.put(`${url}/mata_pelajaran/update_mata_pelajaran/${data.params}`, obj )
           .then(response => {
              if(response.data.status === "success"){
-                alert("Success input mata pelajaran")
-                dispatch(changeUrlTrue())    
+                alert("Success update mata pelajaran")
+                // dispatch(changeUrlTrue())    
              } else {
                 alert(response.data.message_response)
              }

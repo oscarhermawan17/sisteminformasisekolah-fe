@@ -5,6 +5,23 @@ import { log_Out } from '../actions/User'
 
 
 class Navbar extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      burger_nav:"navbar-burger",
+      menu_tranparant:"navbar-menu",
+
+    }
+  }
+
+  activeDropdown(){
+    if(this.state.burger_nav === "navbar-burger"){
+      this.setState({burger_nav:"navbar-burger is-active"}, () => this.setState({menu_tranparant:"navbar-menu is-active"}))
+    } else {
+      this.setState({burger_nav:"navbar-burger"}, () => this.setState({menu_tranparant:"navbar-menu"}))
+    }
+  }
+
   render(){
     return (
       <div className="testing-navbar">
@@ -13,19 +30,19 @@ class Navbar extends React.Component {
             <a className="navbar-item" href="https://bulma.io">
               <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28"/>
             </a>
-            <div className="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <div onClick={() => this.activeDropdown()} className={this.state.burger_nav} data-target="navbarExampleTransparentExample">
               <span></span>
               <span></span>
               <span></span>
             </div>
           </div>
 
-          <div id="navbarExampleTransparentExample" className="navbar-menu">
+          <div id="navbarExampleTransparentExample" className={this.state.menu_tranparant}>
             <div className="navbar-start">             
               <a className="navbar-item" href="/">
                 Profil
               </a>
-              <a className="navbar-item">
+              <a className="navbar-item" href="/404">
                 Datar Nilai
               </a>
 
@@ -48,10 +65,6 @@ class Navbar extends React.Component {
                   </a>
                 </div>
               </div>
-
-              <a className="navbar-item" href="https://bulma.io/">
-                Atur Nilai
-              </a>
             </div>
 
             <div className="navbar-end">

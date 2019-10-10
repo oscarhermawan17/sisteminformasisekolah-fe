@@ -1,6 +1,6 @@
 import axios from 'axios'
 import url from './Url'
-import { changeUrlFalse, changeUrlTrue } from './ChangeUrl'
+import { changeUrlTrue } from './ChangeUrl'
 
 export const loginAction = (login) => {
   return dispatch => {

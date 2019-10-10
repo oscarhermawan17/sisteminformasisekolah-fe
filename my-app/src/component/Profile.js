@@ -3,10 +3,6 @@ import './Style.sass';
 import { connect } from 'react-redux'
 
 class Profile extends React.Component {
-    constructor(){
-        super()
-    }
-
     render(){
         return (
             <div>
@@ -25,10 +21,10 @@ class Profile extends React.Component {
                                 <table className="table">
                                     <tr>
                                         <td>
-                                            {this.props.role === '1' ? 'ADMIN' : this.props.role === '2' ? 'Nomor Induk' : 'Nomor Induk Pegawai'}
+                                            {this.props.role_user === '1' ? 'ADMIN' : this.props.role_user === '2' ? 'Nomor Induk' : 'Nomor Induk Pegawai'}
                                         </td>
                                         <td className="lebar">
-                                            {this.props.role === '2' ? this.props.profile.nomor_induk : this.props.profile.nomor_induk_pegawai}
+                                            {this.props.role_user === '2' ? this.props.profile.nomor_induk : this.props.profile.nomor_induk_pegawai}
                                         </td>
                                     </tr>
                                     <tr>

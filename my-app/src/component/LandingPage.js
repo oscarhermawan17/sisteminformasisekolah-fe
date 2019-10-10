@@ -35,19 +35,19 @@ class LandingPage extends React.Component {
         case 'update_matpel' : return <FormCreateUpdateMataPelajaran {...props} user_navigation={this.props.user_navigation} edit='yes'/>
         // CRUD GURU_MATPEL
         case 'management_guru_matpel' : return <ListGuruMataPelajaran />
-        case 'profile' : return <Profile role="1"/>;
+        case 'profile' : return <Profile role_user="1"/>;
         case '404' : return <Page404 />
         default : return <Page404 />
       } 
     } else if(props.role === 2){
         switch(props.user_navigation){
-          case 'profile' : return <Profile role="2"/>;
+          case 'profile' : return <Profile role_user="2"/>;
           case '404' : return <Page404 />
           default : return <Page404 />
         }
     } else if(props.role === 3){
         switch(props.user_navigation){
-          case 'profile' : return <Profile role="3" />;
+          case 'profile' : return <Profile role_user="3" />;
           case '404' : return <Page404 />
           default : return <Page404 />
         }

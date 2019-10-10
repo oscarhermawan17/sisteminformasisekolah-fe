@@ -39,8 +39,8 @@ class ListMatPel extends React.Component {
                                 </Link>
                             </div>
                             <div className={ListSiswa.content_right}>
-                                <a className="button is-info">Search</a> &nbsp;
-                                <a className="button is-info">Cari</a>
+                                <span className="button is-info">Search</span> &nbsp;
+                                <span className="button is-info">Cari</span>
                             </div> 
                             <div className="clear_float">
                             </div>   
@@ -80,9 +80,9 @@ class ListMatPel extends React.Component {
                                                 <Link to={{
                                                         pathname:`/ubah_mata_pelajaran/${mata_pelajaran.id}`,
                                                 }}>
-                                                        <a className="button is-info">Ubah</a> &nbsp;
+                                                        <span className="button is-info">Ubah</span> &nbsp;
                                                 </Link>
-                                                <a className="button is-danger" onClick={() => this.setState({button_delete:"modal is-active"}, () => this.setState({tmp_mata_pelajaran_ongoing_delete:mata_pelajaran}))}>Hapus</a>
+                                                <span className="button is-danger" onClick={() => this.setState({button_delete:"modal is-active"}, () => this.setState({tmp_mata_pelajaran_ongoing_delete:mata_pelajaran}))}>Hapus</span>
                                             </td>
                                         </tr>  
                                     )

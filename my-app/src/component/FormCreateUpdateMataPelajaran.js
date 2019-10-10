@@ -64,7 +64,7 @@ class FormCreateUpdateMataPelajaran extends React.Component {
                         </tr>                                         
                     </table>
 
-                    <a className="button is-info" onClick={() => this.createMataPelajaran()}>Tambahkan</a>
+                    <span className="button is-info" onClick={() => this.createMataPelajaran()}>Tambahkan</span>
                 </div>               
             </div>
         ) 

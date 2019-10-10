@@ -26,7 +26,6 @@ class ListUserComponent extends React.Component {
     }
 
     render(){
-        let props = this.props
         return (
         <div>
             <div>
@@ -48,8 +47,8 @@ class ListUserComponent extends React.Component {
                                 }
                             </div>
                             <div className={ListSiswa.content_right}>
-                                <a className="button is-info">Search</a> &nbsp;
-                                <a className="button is-info">Cari</a>
+                                <span className="button is-info">Search</span> &nbsp;
+                                <span className="button is-info">Cari</span>
                             </div> 
                             <div className="clear_float">
                             </div>   
@@ -98,17 +97,17 @@ class ListUserComponent extends React.Component {
                                                         pathname:`/ubah_siswa/${user.id}`,
                                                         edit:user
                                                     }}>
-                                                        <a className="button is-info">Ubah</a> &nbsp;
+                                                        <span className="button is-info">Ubah</span> &nbsp;
                                                     </Link> : this.props.user_navigation === 'guru' ?
                                                     <Link to={{
                                                         pathname:`/ubah_guru/${user.id}`,
                                                         edit:user
                                                     }}>
-                                                        <a className="button is-info">Ubah</a> &nbsp;
+                                                        <span className="button is-info">Ubah</span> &nbsp;
                                                     </Link> : null
                                                 }    
                                                 
-                                                <a className="button is-danger" onClick={() => this.setState({button_delete:"modal is-active"}, () => this.setState({tmp_id_ongoing_delete:user}))}>Hapus</a>
+                                                <span className="button is-danger" onClick={() => this.setState({button_delete:"modal is-active"}, () => this.setState({tmp_id_ongoing_delete:user}))}>Hapus</span>
                                             </td>
                                         </tr>
                                     )
