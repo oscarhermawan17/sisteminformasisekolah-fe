@@ -12,6 +12,8 @@ const App = (props) => {
       state => state.Auth
   );
 
+
+  //testing
   useEffect(() => {
     async function fetchData() {
       const hasil = await axios.post(`http://127.0.0.1:3001/auth/verify_token`, {token: auth.token })
