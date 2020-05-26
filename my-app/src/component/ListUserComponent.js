@@ -94,13 +94,13 @@ class ListUserComponent extends React.Component {
                                             <td className={ListSiswa.lebar25}>
                                                 {   this.props.user_navigation === 'siswa' ?
                                                     <Link to={{
-                                                        pathname:`/ubah_siswa/${user.id}`,
+                                                        pathname:`/ubah_siswa/${user.nomor_induk}`,
                                                         edit:user
                                                     }}>
                                                         <span className="button is-info">Ubah</span> &nbsp;
                                                     </Link> : this.props.user_navigation === 'guru' ?
                                                     <Link to={{
-                                                        pathname:`/ubah_guru/${user.id}`,
+                                                        pathname:`/ubah_guru/${user.nomor_induk}`,
                                                         edit:user
                                                     }}>
                                                         <span className="button is-info">Ubah</span> &nbsp;

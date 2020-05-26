@@ -31,15 +31,13 @@ export const setUserToken = (responseToken) =>{
   }
 }
 
-
-
 export const log_Out = () => {
   return {
     type: 'LOG_OUT',
   }
 }
 
-
+// NEED REFACTOR
 export const getAllUsers = (criteria_find) => {
   if(criteria_find === 'siswa'){
     return dispatch => {
@@ -81,6 +79,8 @@ export const setAllUser = (responseData) =>{
   }
 }
 
+
+//create user
 export const createUser = (data_user) => {
   return dispatch => {
     axios.post(`${url}/users/create_user`, data_user )
@@ -106,6 +106,8 @@ export const inputOneUser = (responseData) =>{
   }
 }
 
+
+// delete user
 export const deleteUser = (data_user) => {
   return dispatch => {
     axios.delete(`${url}/users/delete_user`, {headers: {}, data:{id:data_user.id}} )
@@ -130,6 +132,8 @@ export const setDeleteOneUSer = (responseData) =>{
   }
 }
 
+
+
 export const getGuruByName = (value_input_name) => {
   return dispatch => {
     axios.post(`${url}/users/get_guru_by_name`, {value:value_input_name})
@@ -149,6 +153,32 @@ export const getGuruByName = (value_input_name) => {
 export const setGuruByName = (responseData) =>{
   return {
     type: 'SET_GURU_BY_NAME',
+    payload:responseData
+  }
+}
+
+
+// single user
+export const getOneUser = (obj_user_search) => {
+  return dispatch => {
+    axios.get(`${url}/users/${obj_user_search.role}/get_single_user/${obj_user_search.nomor_induk}`)
+          .then(response => {
+            if(response.data.status === 'success'){
+              alert('success');
+              dispatch(setSingleUserByNomorInduk(response.data.data))
+            } else {
+              alert(`${response.data.message_response}`)
+            }
+          })
+          .catch(err => {
+            alert("Error Connection. Please check your connection")
+          });
+  }
+}
+
+const setSingleUserByNomorInduk = (responseData) => {
+  return {
+    type: 'SET_SINGLE_USER_BY_NOMOR_INDUK',
     payload:responseData
   }
 }

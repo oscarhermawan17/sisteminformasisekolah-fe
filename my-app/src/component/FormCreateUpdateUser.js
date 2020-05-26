@@ -1,43 +1,46 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { createUser } from '../actions/User'
-
+import { createUser, getOneUser } from '../actions/User'
+import Url from '../url/Url'
+import axios from 'axios'
 class FormCreateUpdateUser extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            nomor_induk:"",
-            nama_lengkap:"",
-            gender:"",  
-            email:"",
-            alamat:"",
-            nomor_hp:"",
-            password:"admin",
+            user:{
+                nomor_induk: "",
+                nama_lengkap:"",
+                gender:"",  
+                email:"",
+                alamat:"",
+                nomor_hp:"",
+                password:"admin",
+            }
         }   
     }
 
     componentDidMount(){
+        let role = this.props.user_navigation === 'update_siswa' ? 2 : this.props.user_navigation === 'update_guru' ? 3 : null
         if(this.props.edit === 'yes' ){          
-            let tmp = this.props.allUsers.filter(siswa => parseInt(siswa.id) === parseInt(this.props.match.params.id))
-            this.setState({nomor_induk:tmp[0].nomor_induk})
-            this.setState({nama_lengkap:tmp[0].nama_lengkap})
-            this.setState({gender:tmp[0].gender})
-            this.setState({email:tmp[0].email})
-            this.setState({alamat:tmp[0].alamat})
-            this.setState({nomor_hp:tmp[0].nomor_hp})
-        }
-    }
-
-    componentDidUpdate(){
-        if(this.props.user_navigation === 'create_siswa' && this.props.changeUrl === true){
-            this.props.history.push('/management_siswa')
-        } else if(this.props.user_navigation === 'create_guru' && this.props.changeUrl === true){
-            this.props.history.push('/management_guru')
+            axios.get(`${Url}/users/${role}/get_single_user/${this.props.match.params.nomor_induk}`)
+            .then(response => {
+                console.log('hasil', role, this.props)
+              if(response.data.status === 'success'){
+                  this.setState({user:response.data.data})
+              } else {
+                alert(`${response.data.message_response}`)
+              }
+            })
+            .catch(err => {
+              alert("Error Connection. Please check your connection")
+            });
         }
     }
 
     handleChange(e, name) {
-        this.setState({ [name]: e.target.value });
+        this.setState({ 
+            user:{...this.state.user, [name]: e.target.value }
+        });
     }
 
     createUser(){
@@ -61,7 +64,7 @@ class FormCreateUpdateUser extends React.Component {
                                 Nomor Induk Siswa
                             </td>
                             <td>
-                                <input className="input is-info" type="text" placeholder="Masukkan Nomor Induk" value={this.state.nomor_induk} onChange={(e) => this.handleChange(e, 'nomor_induk')}/>
+                                <input className="input is-info" type="text" placeholder="Masukkan Nomor Induk" value={this.state.user.nomor_induk} onChange={(e) => this.handleChange(e, 'nomor_induk')}/>
                             </td>                         
                         </tr>
                         <tr>
@@ -69,7 +72,7 @@ class FormCreateUpdateUser extends React.Component {
                                 Nama Lengkap
                             </td>
                             <td>
-                                <input className="input is-info" width="200px" type="text" placeholder="Isikan dengan nama lengkap" value={this.state.nama_lengkap} onChange={(e) => this.handleChange(e, 'nama_lengkap')}/>
+                                <input className="input is-info" width="200px" type="text" placeholder="Isikan dengan nama lengkap" value={this.state.user.nama_lengkap} onChange={(e) => this.handleChange(e, 'nama_lengkap')}/>
                             </td>                           
                         </tr> 
                         <tr>
@@ -80,7 +83,7 @@ class FormCreateUpdateUser extends React.Component {
                             <div class="field has-addons">
                                 <div class="control is-expanded">
                                     <div class="select is-fullwidth is-info">
-                                    <select name="country" value={this.state.gender} onChange={(e) => this.handleChange(e, 'gender')}>
+                                    <select name="country" value={this.state.user.gender} onChange={(e) => this.handleChange(e, 'gender')}>
                                         <option value="">Pilih Jenis Kelamin</option>
                                         <option value="Pria">Pria</option>
                                         <option value="Wanita">Wanita</option>
@@ -98,7 +101,7 @@ class FormCreateUpdateUser extends React.Component {
                                 Email
                             </td>
                             <td>
-                                <input className="input is-info" type="text" placeholder="Isikan Email" value={this.state.email} onChange={(e) => this.handleChange(e, 'email')}/>
+                                <input className="input is-info" type="text" placeholder="Isikan Email" value={this.state.user.email} onChange={(e) => this.handleChange(e, 'email')}/>
                             </td>                           
                         </tr>  
                         <tr>
@@ -106,7 +109,7 @@ class FormCreateUpdateUser extends React.Component {
                                 Alamat Lengkap
                             </td>
                             <td>
-                                <textarea className="textarea is-info" placeholder="Isikan dengan alamat lengkap" value={this.state.alamat} onChange={(e) => this.handleChange(e, 'alamat')}></textarea>
+                                <textarea className="textarea is-info" placeholder="Isikan dengan alamat lengkap" value={this.state.user.alamat} onChange={(e) => this.handleChange(e, 'alamat')}></textarea>
                             </td>                           
                         </tr> 
                         <tr>
@@ -114,7 +117,7 @@ class FormCreateUpdateUser extends React.Component {
                                 No Handphone
                             </td>
                             <td>
-                                <input className="input is-info" type="text" placeholder="Isikan nomor Hp User" value={this.state.nomor_hp} onChange={(e) => this.handleChange(e, 'nomor_hp')} />
+                                <input className="input is-info" type="text" placeholder="Isikan nomor Hp User" value={this.state.user.nomor_hp} onChange={(e) => this.handleChange(e, 'nomor_hp')} />
                             </td>                           
                         </tr>                    
                     </table>
@@ -127,12 +130,12 @@ class FormCreateUpdateUser extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    allUsers:state.User,
     changeUrl:state.ChangeUrl
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    toCreateUser:(data)=>dispatch(createUser(data)),
+    toGetOneUser:(data)=>dispatch(getOneUser(data)),
+    toCreateUser:(data)=>dispatch(createUser(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (FormCreateUpdateUser)

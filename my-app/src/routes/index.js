@@ -40,13 +40,13 @@ const App = (props) => {
             {/* CRUD MANAGEMENT SISWA */}
             <Route path="/management_siswa" render={(props)=> <LandingPage {...props} user_navigation="siswa" role={auth.role}/>} />
             <Route path="/tambah_siswa"  render={(props)=>  <LandingPage {...props} user_navigation="create_siswa" role={auth.role} />} />
-            <Route path="/ubah_siswa/:id"  render={(props)=>  <LandingPage {...props} user_navigation="update_siswa"role={auth.role} />} />
+            <Route path="/ubah_siswa/:nomor_induk"  render={(props)=>  <LandingPage {...props} user_navigation="update_siswa"role={auth.role} />} />
 
 
             {/* CRUD MANAGEMENT GURU */}
             <Route path="/management_guru" render={(props )=> <LandingPage {...props} user_navigation="guru" role={auth.role}/> } />
             <Route path="/tambah_guru"  render={(props )=>  <LandingPage {...props} user_navigation="create_guru" role={auth.role}/>} />
-            <Route path="/ubah_guru/:id"  render={(props )=>  <LandingPage {...props} user_navigation="update_guru" role={auth.role} />} />
+            <Route path="/ubah_guru/:nomor_induk"  render={(props )=>  <LandingPage {...props} user_navigation="update_guru" role={auth.role} />} />
     
             {/* <Route path="/management_kelas" render={(props )=> <ManagementKelas/>} /> */}
 
@@ -56,7 +56,7 @@ const App = (props) => {
             {/* CRUD MANAGEMENT MATA PELAJARAN */}
             <Route path="/tambah_mata_pelajaran"  render={(props )=>  <LandingPage {...props} user_navigation="create_matpel" role={auth.role} />} />
             <Route path="/management_matpel"  render={(props )=>  <LandingPage {...props} user_navigation="management_matpel" role={auth.role}/>} />
-            <Route path="/ubah_mata_pelajaran/:id"  render={(props )=>  <LandingPage {...props} user_navigation="update_matpel" role={auth.role}/>} />
+            <Route path="/ubah_mata_pelajaran/:nomor_induk"  render={(props )=>  <LandingPage {...props} user_navigation="update_matpel" role={auth.role}/>} />
             
             {/* PROFILE */}
             <Route exact path="/" render={(props )=>  <LandingPage {...props} user_navigation="profile" role={auth.role}/>} />

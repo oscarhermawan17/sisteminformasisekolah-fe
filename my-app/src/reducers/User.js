@@ -1,6 +1,9 @@
-const initialState = []
+const UsersInitialState = []
+const singleUserInitialState = {}
 
-export default(state = initialState, action) =>{
+
+//MANY USERS
+export const User = (state = UsersInitialState, action) =>{
   if(action.type === 'SET_ALL_USERS'){
     return action.payload
   } else if(action.type === 'SET_IDENTITY_USER'){
@@ -14,5 +17,13 @@ export default(state = initialState, action) =>{
   } else if(action.type === 'SET_GURU_BY_NAME'){
     return action.payload
   }
+  return state
+}
+
+//SINGLE USERS
+export const SingleUser = (state = singleUserInitialState, action) =>{
+  if(action.type === 'SET_SINGLE_USER_BY_NOMOR_INDUK'){
+    return action.payload
+  } 
   return state
 }
